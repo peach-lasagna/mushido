@@ -22,9 +22,6 @@ fn conf() -> Conf{
         ..Default::default()
 }}
 
-fn get_texture_size(texture: Texture2D) -> (f32, f32){
-    (texture.width(), texture.height())
-}
 
 #[macroquad::main(conf)]
 async fn main(){
@@ -54,16 +51,14 @@ async fn main(){
         next_frame().await;
     }
 
-    let (c_w, c_h) = get_texture_size(cursor_texture);
-
+    scene::add_node(player::Player::new(vec2(x, y)));
+    // scene::add_node(player::Cursor::new(vec2(x, y)));
 
     loop {
         clear_background(WHITE);
-        let m_pos = mouse_position();
         if is_key_down(KeyCode::Q) {
             break;
         }
-        let (cur_x, cur_y) =  m_pos;
 
         // draw_texture(cursor_texture, cur_x-c_w / 2.0, cur_y-c_h / 2.0, BLACK);
         // draw_texture(hero_texture, x, y, BLACK);
